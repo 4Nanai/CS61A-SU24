@@ -15,6 +15,15 @@ def pascal(row, column):
     """
     "*** YOUR CODE HERE ***"
 
+    if column > row:
+        return 0
+    elif row == column:
+        return 1
+    elif column == 0:
+        return 1
+    else:
+        return pascal(row - 1, column -1) + pascal(row - 1, column)
+
 
 def insert_items(s, before, after):
     """Insert after into s after each occurrence of before and then return s.
