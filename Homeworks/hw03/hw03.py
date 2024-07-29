@@ -52,6 +52,16 @@ def insert_items(s, before, after):
     """
     "*** YOUR CODE HERE ***"
 
+    i = 0
+    while i < len(s):
+        if s[i] != before:
+            i += 1
+        else:
+            s.insert(i+1, after)
+            i += 2
+
+    return s
+
 
 HW_SOURCE_FILE=__file__
 
