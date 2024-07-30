@@ -70,11 +70,15 @@ def planet(mass):
     """Construct a planet of some mass."""
     assert mass > 0
     "*** YOUR CODE HERE ***"
+    return ['planet', mass]
+
 
 def mass(p):
     """Select the mass of a planet."""
     assert is_planet(p), 'must call mass on a planet'
     "*** YOUR CODE HERE ***"
+
+    return p[1]
 
 def is_planet(p):
     """Whether p is a planet."""
@@ -127,6 +131,17 @@ def balanced(m):
     True
     """
     "*** YOUR CODE HERE ***"
+    if is_planet(m):
+        return True
+    
+    if is_mobile(m):
+        if total_mass(end(left(m))) * length(left(m)) == total_mass(end(right(m))) * length(right(m)):
+            if balanced(end(left(m))) and balanced(end(right(m))):
+                return True
+            else:
+                return False
+        else:
+            return False
 
 
 def berry_finder(t):
@@ -147,6 +162,15 @@ def berry_finder(t):
     True
     """
     "*** YOUR CODE HERE ***"
+    if label(t) == 'berry':
+        return True
+    
+    for b in branches(t):
+        if berry_finder(b):
+            return True
+    return False
+
+        
 
 
 HW_SOURCE_FILE=__file__
@@ -162,6 +186,12 @@ def max_path_sum(t):
     17
     """
     "*** YOUR CODE HERE ***"
+
+    if is_leaf(t):
+        return label(t)
+    
+    return label(t) + max([max_path_sum(b) for b in branches(t)])
+
 
 
 def print_move(origin, destination):
@@ -197,6 +227,38 @@ def move_stack(n, start, end):
     """
     assert 1 <= start <= 3 and 1 <= end <= 3 and start != end, "Bad start/end"
     "*** YOUR CODE HERE ***"
+    def odd_help(n, start, end):
+        if start == 3 or end == 3:
+            mid = abs(start - end)
+        else:
+            mid = 3
+
+        if n == 1:
+            print_move(start, end)
+        if n > 1:
+            even_help(n-1, start, mid)
+            print_move(start, end)
+            even_help(n-1, mid, end)
+    def even_help(n, start, end):
+        if start == 3 or end == 3:
+            mid = abs(start - end)
+        else:
+            mid = 3
+
+        if n == 2:
+            print_move(start, mid)
+            print_move(start, end)
+            print_move(mid, end)
+        if n > 2:
+            odd_help(n-1, start, mid)
+            print_move(start, end)
+            odd_help(n-1, mid, end)
+    
+    if n % 2 == 0:
+        return even_help(n, start, end)
+    else:
+        return odd_help(n, start, end)
+
 
 
 from operator import sub, mul
