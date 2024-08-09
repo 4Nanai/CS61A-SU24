@@ -287,10 +287,44 @@ class FireAnt(Ant):
 
 # BEGIN Problem 6
 # The WallAnt class
+
+class WallAnt(Ant):
+    name = 'Wall'
+    food_cost = 4
+    implemented = True
+
+    def __init__(self, health = 4):
+        super().__init__(health)
+
+    
+
+
 # END Problem 6
 
 # BEGIN Problem 7
 # The HungryAnt Class
+
+class HungryAnt(Ant):
+    implemented = True
+    name = 'Hungry'
+    food_cost = 4
+    chewing_turns = 3
+
+    def __init__(self, health=1):
+        super().__init__(health)
+        self.turns_to_chew = 0
+    
+    def action(self, gamestate):
+        if self.turns_to_chew == 0:
+            if self.place.bees:
+                targeted_bee = random_bee(self.place.bees)
+                targeted_bee.reduce_health(targeted_bee.health)
+                self.turns_to_chew = self.chewing_turns
+        else:
+            self.turns_to_chew -= 1
+    
+
+
 # END Problem 7
 
 
