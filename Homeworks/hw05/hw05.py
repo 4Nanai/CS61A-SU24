@@ -252,7 +252,6 @@ def add_d_leaves(t, v):
         t.branches = t.branches + [Tree(v)] * depth
     add_helper(t, 0)
 
-        
 
 
 def level_mutation_link(t, funcs):
