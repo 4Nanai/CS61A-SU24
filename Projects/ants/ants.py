@@ -532,7 +532,21 @@ class SlowThrower(ThrowerAnt):
 
     def throw_at(self, target):
         # BEGIN Problem EC 1
-        "*** YOUR CODE HERE ***"
+        "*** YOUR CODE HERE ***"   
+        slow_turns = 5
+        target.slowed_turn = 0
+        if not hasattr(target, 'original_action'):
+            target.original_action = target.action
+
+        def slow_action(gamestate):
+            if target.slowed_turn < slow_turns:
+                if gamestate.time % 2 == 0:
+                    target.original_action(gamestate)
+                target.slowed_turn += 1
+            else:
+                target.original_action(gamestate)
+        target.action = slow_action
+
         # END Problem EC 1
 
 
