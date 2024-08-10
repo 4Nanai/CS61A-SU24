@@ -527,7 +527,7 @@ class SlowThrower(ThrowerAnt):
     name = 'Slow'
     food_cost = 6
     # BEGIN Problem EC 1
-    implemented = False   # Change to True to view in the GUI
+    implemented = True   # Change to True to view in the GUI
     # END Problem EC 1
 
     def throw_at(self, target):
@@ -556,12 +556,22 @@ class ScaryThrower(ThrowerAnt):
     name = 'Scary'
     food_cost = 6
     # BEGIN Problem EC 2
-    implemented = False   # Change to True to view in the GUI
+    implemented = True   # Change to True to view in the GUI
     # END Problem EC 2
 
     def throw_at(self, target):
         # BEGIN Problem EC 2
         "*** YOUR CODE HERE ***"
+
+        length = 2
+        
+
+        if target:
+            if not hasattr(target, 'scare_status'):
+                target.scare_status = 0
+                target.scare(length)
+
+
         # END Problem EC 2
 
 
@@ -626,7 +636,6 @@ class Bee(Insect):
     damage = 1
     is_waterproof = True
 
-
     def sting(self, ant):
         """Attack an ANT, reducing its health by 1."""
         ant.reduce_health(self.damage)
@@ -651,9 +660,15 @@ class Bee(Insect):
         """
         destination = self.place.exit
 
-
         if self.blocked():
             self.sting(self.place.ant)
+
+
+        elif hasattr(self, 'scare_length') and self.scare_length:
+            if not self.place.entrance.is_hive:
+                self.move_to(self.place.entrance)
+            self.scare_length -= 1
+
         elif self.health > 0 and destination is not None:
             self.move_to(destination)
 
@@ -672,6 +687,9 @@ class Bee(Insect):
         """
         # BEGIN Problem EC 2
         "*** YOUR CODE HERE ***"
+
+        self.scare_length = length
+
         # END Problem EC 2
 
 
