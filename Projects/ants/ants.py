@@ -605,29 +605,63 @@ class LaserAnt(ThrowerAnt):
 
     name = 'Laser'
     food_cost = 10
+    damage = 2
     # OVERRIDE CLASS ATTRIBUTES HERE
     # BEGIN Problem EC 4
-    implemented = False   # Change to True to view in the GUI
+    implemented = True   # Change to True to view in the GUI
     # END Problem EC 4
 
     def __init__(self, health=1):
         super().__init__(health)
         self.insects_shot = 0
-
+    
     def insects_in_front(self):
         # BEGIN Problem EC 4
-        return {}
+        current_place = self.place
+        insects_and_distances = {}
+        distance = 0
+        if current_place.ant.is_container:
+            insects_and_distances[current_place.ant] = distance
+        if current_place.bees:
+            for bee in current_place.bees:
+                insects_and_distances[bee] = distance
+
+        def find_helper(place, distance):
+            if not place.is_hive:
+                if place.ant:
+                    if place.ant.is_container:
+                        insects_and_distances[place.ant] = distance
+                        if place.ant.ant_contained:
+                            insects_and_distances[place.ant.ant_contained] = distance
+                    else:
+                        insects_and_distances[place.ant] = distance
+                if place.bees:
+                    for bee in place.bees:
+                        insects_and_distances[bee] = distance
+                find_helper(place.entrance, distance + 1)
+                
+        find_helper(current_place.entrance, 1)
+
+        # while not current_place.is_hive:
+
+
+        print("DEBUG: insects and distance:", insects_and_distances)
+        return insects_and_distances
         # END Problem EC 4
 
     def calculate_damage(self, distance):
         # BEGIN Problem EC 4
-        return 0
+        
+        current_damage = self.damage - 0.25 * distance - 0.0625 * self.insects_shot
+        print("DEBUG: current_damage =", current_damage)
+        return max(current_damage, 0)
         # END Problem EC 4
 
     def action(self, gamestate):
         insects_and_distances = self.insects_in_front()
         for insect, distance in insects_and_distances.items():
             damage = self.calculate_damage(distance)
+            # print("DEBUG: damage =", damage)
             insect.reduce_health(damage)
             if damage:
                 self.insects_shot += 1
