@@ -271,16 +271,16 @@ def level_mutation_link(t, funcs):
 	>>> t3    # Level 0: 1+1=2; Level 1: 2*5=10; no further levels, so apply remaining z ** 2: 10**2=100
 	Tree(2, [Tree(100)])
 	"""
-	if _____________________:
+	if funcs is Link.empty:
 		return
-	t.label = _____________________
-	remaining = _____________________
-	if __________________ and __________________:
-		while _____________________:
-			_____________________
+	t.label = funcs.first(t.label)
+	remaining = funcs.rest
+	if remaining is not Link.empty and not t.branches:
+		while remaining is not Link.empty:
+			t.label = remaining.first(t.label)
 			remaining = remaining.rest
 	for b in t.branches:
-		_____________________
+		level_mutation_link(b, remaining)
 
 
 def store_digits(n):
@@ -302,6 +302,7 @@ def store_digits(n):
     """
     "*** YOUR CODE HERE ***"
 
+    
 
 def deep_map_mut(func, lnk):
     """Mutates a deep link lnk by replacing each item found with the
