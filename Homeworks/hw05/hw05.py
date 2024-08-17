@@ -385,7 +385,7 @@ def transcribe(dna):
     ['AUG', 'GAU', 'CGG', 'GUA', 'UUU']
     """
     dict = {'A': 'U', 'T': 'A', 'G': 'C', 'C': 'G'}
-    return __________________
+    return [dict[dna[i]] + dict[dna[i + 1]] + dict[dna[i + 2]] for i in range(0, len(dna), 3)]
 
 
 class Tree:
