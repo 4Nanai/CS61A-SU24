@@ -328,7 +328,17 @@ def deep_map_mut(func, lnk):
     <9 <16> 25 36>
     """
     "*** YOUR CODE HERE ***"
+    if lnk is not Link.empty:
+        if type(lnk.first) is int:
+            lnk.first = func(lnk.first)
+            print("DEBUG: first if", lnk.first)
+        
+        if type(lnk.first) is Link:
+            print("DEBUG: second if", lnk.first)
+            deep_map_mut(func, lnk.first)
 
+        print("DEBUG:", lnk)
+        deep_map_mut(func, lnk.rest)
 
 def crispr_gene_insertion(lnk_of_genes, insert):
     """Takes a linked list of genes and mutates the genes with the INSERT codon added the correct number of times.
@@ -351,6 +361,21 @@ def crispr_gene_insertion(lnk_of_genes, insert):
     ()
     """
     "*** YOUR CODE HERE ***"
+
+    def helper(link, insert, i):
+        if link is not Link.empty:
+            print("DEBUG: i =", i)
+            if type(link.first) is Link:
+                helper(link.first, insert, i)
+            else:
+                if link.first == "AUG":
+                    for _ in range(i):
+                        link.rest = Link(insert, link.rest)
+                else:
+                    helper(link.rest, insert, i)
+            if link.rest is not Link.empty and type(link.rest.first) is Link:
+                helper(link.rest, insert, i + 1)
+    helper(lnk_of_genes, insert, 1)
 
 def transcribe(dna):
     """Takes a string of DNA and returns a Python list with the RNA codons.
