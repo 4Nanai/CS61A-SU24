@@ -90,6 +90,15 @@ def add_links(link1, link2):
     """
     "*** YOUR CODE HERE ***"
 
+    if link1 is not Link.empty:
+        return Link(link1.first, add_links(link1.rest, link2))
+    elif link2 is not Link.empty:
+        return Link(link2.first, add_links(link1, link2.rest))
+    else:
+        return Link.empty
+    
+    
+    
 
 def multiply_lnks(lst_of_lnks):
     """
