@@ -69,6 +69,12 @@ def convert_link(link):
     """
     "*** YOUR CODE HERE ***"
 
+    lst = []
+    while link is not Link.empty:
+        lst.append(link.first)
+        link = link.rest
+    return lst
+
 
 def add_links(link1, link2):
     """Adds two Links, returning a new Link
