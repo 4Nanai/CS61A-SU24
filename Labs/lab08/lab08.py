@@ -97,9 +97,6 @@ def add_links(link1, link2):
     else:
         return Link.empty
     
-    
-    
-
 def multiply_lnks(lst_of_lnks):
     """
     >>> a = Link(2, Link(3))
@@ -116,12 +113,12 @@ def multiply_lnks(lst_of_lnks):
     Link(48, Link(12, Link(0)))
     """
     product = 1
-    for _________ in ________________:
-        if __________________________________________:
-            _________________________________
-        ___________________
-    lst_of_lnks_rests = [_________ for _________ in ________________]
-    return _________________________________________________
+    for link in lst_of_lnks:
+        if link is Link.empty:
+            return Link.empty
+        product *= link.first
+    lst_of_lnks_rests = [ lnk.rest for lnk in lst_of_lnks]
+    return Link(product, multiply_lnks(lst_of_lnks_rests))
 
 
 class Tree:
