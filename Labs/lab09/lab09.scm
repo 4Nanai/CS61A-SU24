@@ -59,14 +59,28 @@
 
 (define (duplicate lst) 
     
-    (if (null? lst)
-      nil
-      (cons (car lst) (cons (car lst) (duplicate (cdr lst))))
-    )
+  (if (null? lst)
+    nil
+    (cons (car lst) (cons (car lst) (duplicate (cdr lst))))
+  )
 )
 
 (expect (duplicate '(1 2 3)) (1 1 2 2 3 3))
 
 (expect (duplicate '(1 1)) (1 1 1 1))
 
-(define (deep-map fn s) 'YOUR-CODE-HERE)
+(define (deep-map fn s) 
+  (
+    if (null? s)
+      nil
+      (
+        if (not (list? (car s)))
+          (cons (fn (car s)) (deep-map fn (cdr s)))
+          (
+            if (null? (cdr s))
+              (list (deep-map fn (car s)))
+              (cons (deep-map fn (car s)) (deep-map fn (cdr s)))
+          )
+      )
+  )
+)
