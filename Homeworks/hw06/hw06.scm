@@ -20,11 +20,20 @@
 
 (define (cddr s) (cdr (cdr s)))
 
-(define (cadr s) 'YOUR-CODE-HERE)
+(define (cadr s) (car (cdr s)))
 
-(define (caddr s) 'YOUR-CODE-HERE)
+(define (caddr s) (car (cdr (cdr s))))
 
-(define (ascending? s) 'YOUR-CODE-HERE)
+(define (ascending? s) 
+        (if (null? s)
+                #t
+                (if (null? (cdr s))
+                        #t
+                        (if (not (> (car s) (cadr s)))
+                                (ascending? (cdr s))
+                                #f))
+        )
+)
 
 (define (my-filter pred s) 'YOUR-CODE-HERE)
 
