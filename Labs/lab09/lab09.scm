@@ -38,18 +38,24 @@
       b
       a))
 
-(define (gcd a b) 
-  (if (> a b)
-    (if (not (= 0 (modulo a b)))
-      (gcd b (modulo a b))
-      b)
-    (if (= a b)
-    a
-    (gcd b a)
-    )
-  )
-)
+; (define (gcd a b) 
+;   (if (> a b)
+;     (if (not (= 0 (modulo a b)))
+;       (gcd b (modulo a b))
+;       b)
+;     (if (= a b)
+;     a
+;     (gcd b a)
+;     )
+;   )
+; )
 
+; Altering method using max and min
+(define (gcd a b)
+  (if (not (= 0 (modulo (max a b) (min a b))))
+    (gcd (max a b) (modulo (max a b) (min a b)))
+    b)
+)
 
 (define (duplicate lst) 'YOUR-CODE-HERE)
 
