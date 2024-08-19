@@ -1,6 +1,16 @@
 (define (square n) (* n n))
 
-(define (pow base exp) 'YOUR-CODE-HERE)
+(define (pow base exp)
+        (
+                if (= exp 1)
+                        base
+                        (
+                                if (even? exp)
+                                        (pow (square base) (/ exp 2))
+                                        (* base (pow base (- exp 1)))
+                        )
+        )
+)
 
 (define (repeatedly-cube n x)
   (if (zero? n)
