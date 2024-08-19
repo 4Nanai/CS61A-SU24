@@ -57,7 +57,13 @@
     b)
 )
 
-(define (duplicate lst) 'YOUR-CODE-HERE)
+(define (duplicate lst) 
+    
+    (if (null? lst)
+      nil
+      (cons (car lst) (cons (car lst) (duplicate (cdr lst))))
+    )
+)
 
 (expect (duplicate '(1 2 3)) (1 1 2 2 3 3))
 
