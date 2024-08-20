@@ -56,7 +56,6 @@ def floor_div(args):
     if args.rest is nil:
         return args.first
     else:
-        print("DEBUG:", args.rest.first)
         if isinstance(args.rest.first, Pair):
             args.rest.first = calc_eval(args.rest.first)
         args.rest.first = args.first // args.rest.first
@@ -84,6 +83,21 @@ def eval_and(expressions):
     """
     "*** YOUR CODE HERE ***"
 
+    # expressions only contains the operands
+    if expressions is nil:
+        return True
+    else:
+        if expressions.rest is not nil:
+            if isinstance(expressions.first, Pair):
+                expressions.first = calc_eval(expressions.first)
+            if isinstance(expressions.rest.first, Pair):
+                expressions.rest.first = calc_eval(expressions.rest.first)
+            if expressions.first is False:
+                return False
+            else:
+                return eval_and(expressions.rest)
+        else:
+            return True and expressions.first
 bindings = {}
 
 def eval_define(expressions):
