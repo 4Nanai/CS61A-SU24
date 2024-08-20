@@ -35,7 +35,15 @@
         )
 )
 
-(define (my-filter pred s) 'YOUR-CODE-HERE)
+(define (my-filter pred s)
+        (if (null? s)
+                nil
+                (if (pred (car s))
+                        (cons (car s) (my-filter pred (cdr s)))
+                        (my-filter pred (cdr s))
+                )
+        )
+)
 
 (define (no-repeats s) 'YOUR-CODE-HERE)
 
