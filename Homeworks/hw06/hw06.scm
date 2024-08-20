@@ -56,7 +56,14 @@
 ; returns the values of lst that are bigger than x
 ; e.g., (larger-values 3 '(1 2 3 4 5 1 2 3 4 5)) --> (4 5 4 5)
 (define (larger-values x lst)
-  ______________________________________________)
+        (if (null? lst)
+                nil
+                (if (> (car lst) x)
+                        (cons (car lst) (larger-values x (cdr lst)))
+                        (larger-values x (cdr lst))
+                )
+        )
+)
 
 (define (longest-increasing-subsequence lst)
   (if (null? lst)
@@ -66,9 +73,9 @@
              (define large-values-rest
                      (larger-values first rest))
              (define with-first
-                     ______________________________________________)
+                     (cons first (longest-increasing-subsequence large-values-rest)))
              (define without-first
-                     ______________________________________________)
-             (if ______________________________________________
+                     (longest-increasing-subsequence rest))
+             (if (or (null? (cdr lst)) (< (car lst) (car (cdr lst))))
                  with-first
                  without-first))))
