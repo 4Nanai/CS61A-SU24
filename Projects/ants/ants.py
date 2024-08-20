@@ -642,9 +642,6 @@ class LaserAnt(ThrowerAnt):
                 
         find_helper(current_place.entrance, 1)
 
-        # while not current_place.is_hive:
-
-
         print("DEBUG: insects and distance:", insects_and_distances)
         return insects_and_distances
         # END Problem EC 4
