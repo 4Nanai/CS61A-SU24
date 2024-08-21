@@ -21,13 +21,13 @@ def calc_eval(exp):
         elif operator == 'define': # define expressions
             return eval_define(operands)
         else: # Call expressions
-            return calc_apply(OPERATORS[operator], operands) # UPDATE THIS FOR Q2, what is type(operator)?
+            return calc_apply(calc_eval(operator), operands) # UPDATE THIS FOR Q2, what is type(operator)?
     elif exp in OPERATORS:   # Looking up procedures
         return OPERATORS[exp]
     elif isinstance(exp, int) or isinstance(exp, bool):   # Numbers and booleans
         return exp
-    elif _________________: # CHANGE THIS CONDITION FOR Q4 where are variables stored?
-        return _________________ # UPDATE THIS FOR Q4, how do you access a variable?
+    elif exp in bindings: # CHANGE THIS CONDITION FOR Q4 where are variables stored?
+        return calc_eval(bindings[exp]) # UPDATE THIS FOR Q4, how do you access a variable?
 
 def calc_apply(op, args):
     return op(args)
@@ -98,6 +98,7 @@ def eval_and(expressions):
                 return eval_and(expressions.rest)
         else:
             return True and expressions.first
+        
 bindings = {}
 
 def eval_define(expressions):
@@ -116,6 +117,12 @@ def eval_define(expressions):
     2
     """
     "*** YOUR CODE HERE ***"
+    if expressions.rest.first in OPERATORS:
+        bindings[expressions.first] = expressions.rest.first
+    else:
+        bindings[expressions.first] = expressions.rest.first
+    print("DEBUG:", bindings)
+    return expressions.first
 
 OPERATORS = { "//": floor_div, "+": addition, "-": subtraction, "*": multiplication, "/": division }
 
