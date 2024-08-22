@@ -38,7 +38,9 @@ def do_define_form(expressions, env):
         # BEGIN PROBLEM 4
         "*** YOUR CODE HERE ***"
 
-        
+        if not isinstance(signature, Pair):
+            env.define(signature, scheme_eval(expressions.rest.first, env))
+            return signature
 
         # END PROBLEM 4
     elif isinstance(signature, Pair) and scheme_symbolp(signature.first):
