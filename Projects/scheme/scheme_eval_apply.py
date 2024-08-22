@@ -34,11 +34,16 @@ def scheme_eval(expr, env, _=None): # Optional third argument is ignored
     else:
         # BEGIN PROBLEM 3
         "*** YOUR CODE HERE ***"
+
+        operator = scheme_eval(first, env)
+        return scheme_apply(operator, rest.map(lambda x: scheme_eval(x, env)), env)
+        
         # END PROBLEM 3
 
 def scheme_apply(procedure, args, env):
     """Apply Scheme PROCEDURE to argument values ARGS (a Scheme list) in
     Frame ENV, the current environment."""
+    print("DEBUG:", procedure)
     validate_procedure(procedure)
     if not isinstance(env, Frame):
        assert False, "Not a Frame: {}".format(env)
