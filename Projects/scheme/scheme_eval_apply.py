@@ -35,8 +35,7 @@ def scheme_eval(expr, env, _=None): # Optional third argument is ignored
         # BEGIN PROBLEM 3
         "*** YOUR CODE HERE ***"
 
-        operator = scheme_eval(first, env)
-        return scheme_apply(operator, rest.map(lambda x: scheme_eval(x, env)), env)
+        return scheme_apply(scheme_eval(first, env), rest.map(lambda x: scheme_eval(x, env)), env)
         
         # END PROBLEM 3
 
@@ -95,7 +94,15 @@ def eval_all(expressions, env):
     2
     """
     # BEGIN PROBLEM 6
-    return scheme_eval(expressions.first, env) # replace this with lines of your own code
+    
+    return_value = expressions.map(lambda x: scheme_eval(x, env))
+    if return_value is not nil:
+        while return_value.rest is not nil:
+            return_value = return_value.rest
+        return return_value.first
+    else:
+        return None
+
     # END PROBLEM 6
 
 
