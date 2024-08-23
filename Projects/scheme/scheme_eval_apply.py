@@ -42,7 +42,7 @@ def scheme_eval(expr, env, _=None): # Optional third argument is ignored
 def scheme_apply(procedure, args, env):
     """Apply Scheme PROCEDURE to argument values ARGS (a Scheme list) in
     Frame ENV, the current environment."""
-    print("DEBUG:", procedure)
+    
     validate_procedure(procedure)
     if not isinstance(env, Frame):
        assert False, "Not a Frame: {}".format(env)
@@ -70,6 +70,10 @@ def scheme_apply(procedure, args, env):
     elif isinstance(procedure, LambdaProcedure):
         # BEGIN PROBLEM 9
         "*** YOUR CODE HERE ***"
+
+        child_frame = procedure.env.make_child_frame(procedure.formals, args)
+        return eval_all(procedure.body, child_frame)
+
         # END PROBLEM 9
     elif isinstance(procedure, MuProcedure):
         # BEGIN PROBLEM 11
