@@ -144,6 +144,14 @@ def do_and_form(expressions, env):
     """
     # BEGIN PROBLEM 12
     "*** YOUR CODE HERE ***"
+    if expressions is nil:
+        return True
+    while expressions is not nil:
+        latest_and = scheme_eval(expressions.first, env)
+        if is_scheme_false(latest_and):
+            return latest_and
+        expressions = expressions.rest
+    return latest_and
     # END PROBLEM 12
 
 def do_or_form(expressions, env):
@@ -162,6 +170,15 @@ def do_or_form(expressions, env):
     """
     # BEGIN PROBLEM 12
     "*** YOUR CODE HERE ***"
+    
+    if expressions is nil:
+        return False
+    while expressions is not nil:
+        latest_or = scheme_eval(expressions.first, env)
+        if is_scheme_true(latest_or):
+            return latest_or
+        expressions = expressions.rest
+    return latest_or
     # END PROBLEM 12
 
 def do_cond_form(expressions, env):
