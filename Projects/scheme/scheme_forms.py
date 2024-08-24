@@ -229,6 +229,26 @@ def make_let_frame(bindings, env):
     names = vals = nil
     # BEGIN PROBLEM 14
     "*** YOUR CODE HERE ***"
+
+    check_bindings = bindings.map(lambda x: x)
+    while check_bindings is not nil:
+        validate_form(check_bindings.first, 2, 2)
+        check_bindings = check_bindings.rest
+
+    def name_lst(bindings):
+        if bindings is not nil:
+            return Pair(bindings.first.first, name_lst(bindings.rest))
+        else:
+            return nil
+    def vals_lst(bindings):
+        if bindings is not nil:
+            return Pair(scheme_eval(bindings.first.rest.first, env), vals_lst(bindings.rest))
+        else:
+            return nil
+    names = name_lst(bindings)
+    validate_formals(names)
+    vals = vals_lst(bindings)
+
     # END PROBLEM 14
     return env.make_child_frame(names, vals)
 
